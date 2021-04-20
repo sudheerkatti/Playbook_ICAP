@@ -1,0 +1,35 @@
+---
+  
+- name:   Cisco Switch outputs and config back up
+  hosts: ABC1234
+  gather_facts: network_cli 
+  vars:
+   ansible_connection: network_cli
+   ansible_network_os: ios
+   command_list:
+      - enable
+      - show clock
+      - show run | in hostname
+      - show switch
+      - show version
+      - show run
+      - show inventory
+      - show cdp neighbor
+      - show cdp neighbor detail
+      - show ip interface brief
+      - show ip interface brief | i up
+      - show mac add 
+      - show ip arp
+
+  tasks:
+    - name: run some of the desired outputs
+      ios_command:
+        commands:  "{{ command_list }}"
+      register: showoutput
+            
+    - name: Save all the outputs in a single file someplace
+      template:
+        src: template.j2
+        dest: "/home/sudheer.katti@tcccbluemix.com/config_backup/ABC1234/{{inventory_hostname}}-config.txt"
+
+

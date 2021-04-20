@@ -1,0 +1,28 @@
+commands to run
+
+e.g. 
+ansible-playbook -v -u o43872 -k   play_show_ver.yml
+
+
+ansible-playbook -u o43872 -k play_collect_outputs.yml -v
+
+
+
+Just   ansible-playbook play_collect_outputs.yml -v if using vars/credentials from hostfile--
+
+
+-v is for verbose
+-k is to get login prompt
+-u xxx is providing username
+
+
+
+To run the playbook,  invoke the vault this way:
+
+ ansible-playbook play_show_ver.yml --vault-password-file ~/playbooks/vault-password-file -vv
+
+    (vault-password-file is the file that has my encrypted password)
+    (make sure the host file has ansible_connection=ssh) like this
+
+    [SW]
+    ABC123-CS01	ansible_host=10.4.1.1 ansible_connection=ssh 
